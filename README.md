@@ -41,18 +41,18 @@ Topic’e gelen mesaj bölüm sonuna eklenir. Her mesajın offset ve partition b
 
 ### Topic Oluşturma
 •	C:\Users\fatma>  **cd /BigData/Kafka<br>**
-•	C:\BigData\Kafka><br>   
+•	C:\BigData\Kafka>  
 **bin\windows\zookeeper-server-start.bat config\zookeeper.propertie**
 (Kafka server’ı başlatmış olduk.)<br>  
-•	C:\BigData\Kafka><br>  
+•	C:\BigData\Kafka> 
 **bin\windows\kafka-topics.bat --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic test**
 (Test isimli bir topic oluşturduk.Tek bir partition’a sahip.)<br>  
-•	C:\BigData\Kafka> <br>  
+•	C:\BigData\Kafka>   
 **bin\windows\kafka-topics.bat --list --bootstrap-server localhost:9092**<br> 
 test<br> 
 (topic’ i görme komutumuz)<br> 
 •	Alternative way to see;<br> 
-C:\BigData\Kafka> <br> 
+C:\BigData\Kafka> 
 **bin\windows\kafka-topics.bat --list --zookeeper localhost:2181**<br> 
 test<br> 
 
@@ -69,7 +69,7 @@ Key’siz gönderme yönteminde Kafka iş yükünü dağıtmak için (load balan
 ### Java ile Kafka Producer oluşturma
 
 •	Öncelikle topictest adında bir topic oluşturalım.<br> 
-C:\BigData\Kafka> <br> 
+C:\BigData\Kafka> 
 **bin\windows\kafka-topics.bat --create --replication-factor 1 --partitions 1 --topic topictest --zookeeper  localhost:2181**<br> 
 Created topic topictest. <br> 
 •	Topic listesine bakalım.<br>
