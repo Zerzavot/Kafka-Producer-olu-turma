@@ -112,6 +112,7 @@ topictest
 ```
 
 •	Producer class’ımızı ve main’i yazıyoruz.<br> 
+(bunlar java dosyası olarak paylaşıldı.)
 
 •	Bir cmd isteminde zookeeper’ı,bir diğerinde kafka’yı çalıştıralım.<br> 
 •	Bir başka cmd komut istemine<br> 
