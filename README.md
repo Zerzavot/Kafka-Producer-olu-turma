@@ -15,8 +15,10 @@ Sisteminizde nereye kurduysanız değişken değeri kısmına onu yazın. (Ör. 
 User variables for user kısmındaki Path kısmına tıklayıp düzenle diyelim. Yeni deyip zookeeper’ ımızı ekleyelim.<br>
 “%ZOOKEEPER_HOME%\bin” şeklinde olmalıdır.<br>
 •	Cmd komut istemine aşağıdaki komut ile başlat diyebiliriz.<br>
-zookeeper-server-start.bat C:\BigData\Kafka\config\zookeeper.properties herhangi bir hata ile karşılaşmamanız gerekiyor.
-(veya cmd komut istemine zkserver yazarak çalıştırabilirsiniz.)<br>
+```
+zookeeper-server-start.bat C:\BigData\Kafka\config\zookeeper.properties
+```
+herhangi bir hata ile karşılaşmamanız gerekiyor.(veya cmd komut istemine zkserver yazarak çalıştırabilirsiniz.)<br>
 
 
 ### Kafka Kurulumu
@@ -31,7 +33,9 @@ User variables for user kısmındaki Path kısmına tıklayıp düzenle diyelim.
 •	Loglar için kafka klasörümüzün içine kafka-logs isimli yeni bir dosya oluşturalım.<br>
 Kafka>conf>server.properties dosyasını açalım. log.dirs=C:\BigData\Kafka\kafka-logs olarak değiştirelim.
 •	Başlatmak için cmd ye <br>
+```
 kafka-server-start.bat C:\BigData\Kafka\config\server.properties<br>
+```
 (Note:Önemli bir nokta->zookeper' ı cmd de zkserver deyip çalıştırdıktan sonra o komut istemini kapatmayın. Yeni bir cmd den kafka çalıştırın. Aksi taktirde kafka çalışmayacaktır.)
 
 
@@ -40,21 +44,26 @@ Topic kullanıcı tanımlı kategori ismidir. Kafka message’ları Topic‘lerd
 Topic’e gelen mesaj bölüm sonuna eklenir. Her mesajın offset ve partition bilgisi vardır. Veri bir kez bir partition’a yazıldıktan sonra bir daha değiştirilemez. (immutability). Tüm mesajlar belirlenen süre boyunca (immutable olarak gerçekleştiği için)  partition ve offset bilgisi değişmeden tutulur. Bu işlem sayesinde istenilen mesaj, herhangi bir okuma işleminden sonra bile kaybolmaz, bu sayede tekrar erişim mümkün olmaktadır.
 
 ### Topic Oluşturma
-•	C:\Users\fatma>  **cd /BigData/Kafka<br>**
-•	C:\BigData\Kafka>  
-**bin\windows\zookeeper-server-start.bat config\zookeeper.propertie**
+```
+C:\Users\fatma>cd /BigData/Kafka
+C:\BigData\Kafka> bin\windows\zookeeper-server-start.bat config\zookeeper.propertie
+```
 (Kafka server’ı başlatmış olduk.)<br>  
-•	C:\BigData\Kafka> 
-**bin\windows\kafka-topics.bat --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic test**
-(Test isimli bir topic oluşturduk.Tek bir partition’a sahip.)<br>  
-•	C:\BigData\Kafka>   
-**bin\windows\kafka-topics.bat --list --bootstrap-server localhost:9092**<br> 
-test<br> 
+```
+C:\BigData\Kafka> bin\windows\kafka-topics.bat --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic test
+```
+(Test isimli bir topic oluşturduk.Tek bir partition’a sahip.)<br>
+```
+C:\BigData\Kafka>bin\windows\kafka-topics.bat --list --bootstrap-server localhost:9092
+test
+```
 (topic’ i görme komutumuz)<br> 
 •	Alternative way to see;<br> 
-C:\BigData\Kafka> 
-**bin\windows\kafka-topics.bat --list --zookeeper localhost:2181**<br> 
-test<br> 
+```
+C:\BigData\Kafka>bin\windows\kafka-topics.bat --list --zookeeper localhost:2181 
+test
+```
+ 
 
 ### Producer Nedir?
 Producer’lar Topic’lere message gönderir (Publisher pozisyonundadırlar.) Veriyi topic’e key ile ve key’siz olmak üzere iki farklı yolla gönderebilirler.<br> 
@@ -68,14 +77,19 @@ Key ile gönderme durumunda ilk gönderilen mesaj hangi partition’a gittiyse a
 Key’siz gönderme yönteminde Kafka iş yükünü dağıtmak için (load balancing) sıralı bir şekilde (round robin) gönderecektir. Bu durumda verimize sonradan sıralı bir şekilde ulaşamayız.<br> 
 ### Java ile Kafka Producer oluşturma
 
-•	Öncelikle topictest adında bir topic oluşturalım.<br> 
-C:\BigData\Kafka> 
-**bin\windows\kafka-topics.bat --create --replication-factor 1 --partitions 1 --topic topictest --zookeeper  localhost:2181**<br> 
-Created topic topictest. <br> 
+•	Öncelikle topictest adında bir topic oluşturalım.<br>
+```
+C:\BigData\Kafka>bin\windows\kafka-topics.bat --create --replication-factor 1 --partitions 1 --topic topictest --zookeeper  localhost:2181 
+Created topic topictest.
+```
+
 •	Topic listesine bakalım.<br>
-C:\BigData\Kafka> **bin\windows\kafka-topics.bat --list --zookeeper localhost:2181**<br>
-test<br>
-topictest<br>
+```
+C:\BigData\Kafka> bin\windows\kafka-topics.bat --list --zookeeper localhost:2181
+test
+topictest
+```
+
 •	Apache Netbeans kurulumu yapalım.<br> 
 •	Bir maven projesi oluşturduktan sonra Project Files kısmında gelen pom.xml dosyasına bazı eklentiler yapmamız gerekiyor.<br>
 ```
@@ -101,15 +115,21 @@ topictest<br>
 
 •	Bir cmd isteminde zookeeper’ı,bir diğerinde kafka’yı çalıştıralım.<br> 
 •	Bir başka cmd komut istemine<br> 
-C:\Users\fatma>**cd /BigData/Kafka**<br> 
-C:\BigData\Kafka> **.\bin\windows\kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic topictest --from-beginning**<br> 
+```
+C:\Users\fatma>cd /BigData/Kafka
+C:\BigData\Kafka>.\bin\windows\kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic topictest --from-beginning
+```
+
 •	Çıktı:<br> 
-SLF4J: Class path contains multiple SLF4J bindings.<br> 
-SLF4J: Found binding in [jar:file:/C:/BigData/Kafka/libs/slf4j-log4j12-1.7.28.jar!/org/slf4j/impl/StaticLoggerBinder.class]<br> 
-SLF4J: Found binding in [jar:file:/C:/BigData/Kafka/libs/slf4j-simple-1.7.28.jar!/org/slf4j/impl/StaticLoggerBinder.class]<br> 
-SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.<br> 
-SLF4J: Actual binding is of type [org.slf4j.impl.Log4jLoggerFactory]<br> 
----Bunu gonderdim gitti---<br> 
+```
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/C:/BigData/Kafka/libs/slf4j-log4j12-1.7.28.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/C:/BigData/Kafka/libs/slf4j-simple-1.7.28.jar!/org/slf4j/impl/StaticLoggerBinder.class] 
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [org.slf4j.impl.Log4jLoggerFactory]
+---Bunu gonderdim gitti---
+```
+
 
 
 
